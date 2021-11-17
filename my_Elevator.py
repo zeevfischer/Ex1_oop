@@ -14,13 +14,14 @@ class E:
 
         self.cur_locatiion=0
         self.state = 0  # 1up -1down 0stand
-        self.calls = PriorityQueue()
-        self.calls.put(0)
-        self.dest = self.calls.get()
+        self.calls_dest = PriorityQueue()
+        self.calls_dest.put(0)
+        # self.dest = self.calls.get()
 
         self.location = 0
         self.last_call_time=0
         self.endTime = float(0)
+
         self.lode = []
         self.time_lode = []
     def updet_location(self):
