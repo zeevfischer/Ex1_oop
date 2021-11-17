@@ -1,16 +1,53 @@
 import csv
-import json
-import random
 import sys
-
-from my_Elevator import E
 from my_Bilding import B
 from my_call import Call
-from random import randint,seed
+from my_Elevator import E
 class IDError:
     pass
 
-# def location(bilding,elev)
+def set_state_by_call(elev: E,call:Call):
+    if(call.src < call.dest):
+        elev.status = 1  #up
+    if (call.src > call.dest):
+        elev.status = -1  # up
+
+def on_root(elev: E,call:Call):
+    id = -1
+    if ((call.src < call.dest)):
+        if (elev.calls.empty()):
+            id = elev.id
+
+        for i in elev.calls:
+            if(i < call.dest):
+                if (elev.last_call_time + elev.cost_location(call.src) > call.call_time):
+                    id= elev.id
+
+    elif ((call.src > call.dest)):
+        if (elev.calls.empty()):
+            id = elev.id
+
+        for i in elev.calls:
+            if(i > call.dest):
+                if(elev.last_call_time+elev.cost_location(call.src)>call.call_time):
+                    id= elev.id
+    return id
+
+def locate(time,Bilding:B):
+    for e in Bilding.elevators:
+        if(e.state == 1 and e.startTime <= time):
+            e.cur_locatiion += e.speed
+            if(e.cur_locatiion >= e.dest):
+                e.cur_locatiion = e.cur_locatiion
+                e.startTime =time+e.stopTime
+
+        if(e.state == -1 and e.startTime<= time):
+            e.cur_locatiion -= e.speed
+            if(e.cur_locatiion <= e.dest):
+                e.cur_locatiion=e.cur_locatiion
+                e.startTime = time+e.stopTime
+        if(e.calls.empty()):
+            e.dest=0
 
 def Ex1(bilding,calls,output):
     b = B(bilding)
@@ -25,31 +62,36 @@ def Ex1(bilding,calls,output):
     with open(output, "w",newline="") as ansfile:
         writef = csv.writer(ansfile)
         for i in call: # here i get a call and can start working on it
-            # frist = bool(True)
-            # # this is not the firt call
-            # if(frist != True):
-            #     print()
+            elevs=[]
+            min_lode = sys.float_info.max
+            id_lode = 0
             min_time = sys.float_info.max
-            min_id = 0
+            min_id = -1
             if ((int(i.src) >= b.min_flor) and (int(i.dest) <= b.max_flor)) or ((int(i.src) >= b.min_flor) and (int(i.dest) <= b.max_flor)):
-                for e in b.elevators: # run on elevators to see witch one is better
-                #     # if (e.calltime(i) < temp_time):
-                #     #     temp_time = e.calltime(i)
-                #     #     temp_id = e.get_id()
-                # temp_id=random.randrange(0,len(b.elevators),1)
+                for e2 in b.elevators:
+                    if(on_root(e2,i) != -1):
+                        elevs.append(e2)
+
+                for e in elevs:
+                    if(e.sum_lode() < min_lode):
+                        id_lode = e.get_id()
+                    if(float(e.endTime) <= float(i.call_time)):
+                        # temp=e.cost_call(i)
+                        if(e.cost_call(i) < min_time):
+                            min_time=e.cost_call(i)
+                            min_id=e.get_id()
+                if(min_id == -1):
+                    min_id = id_lode
 
 
-                    # temp_location=e.location
-                    temp_time=e.cost_call(i)
-                    if(temp_time < min_time):
-                        min_time=e.cost_call(i)
-                        min_id=e.get_id()
-
-
-                e.update_for_call(i)
+                b.elevators[min_id].calls.append(i.src)
+                b.elevators[min_id].calls.append(i.dest)
+                set_state_by_call(b.elevators[min_id],i)
+                b.elevators[min_id].last_call_time=i.call_time
+                b.elevators[min_id].update_for_call(i)
                 i.allocate(min_id)
                 writef.writerow(i.get_row())
 
 if __name__ == '__main__':
-    Ex1("B3.json","Calls_b.csv","out.csv")
+    Ex1("B3.json","my_c.csv","out.csv")
 

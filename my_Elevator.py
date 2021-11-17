@@ -1,4 +1,6 @@
 from my_call import Call
+from queue import PriorityQueue
+
 class E:
     def __init__(self, data) -> None:
         self.id = data["_id"]
@@ -9,29 +11,52 @@ class E:
         self.openTime = data["_openTime"]
         self.startTime = data["_startTime"]
         self.stopTime = data["_stopTime"]
+
+        self.cur_locatiion=0
+        self.state = 0  # 1up -1down 0stand
+        self.calls = PriorityQueue()
+        self.calls.put(0)
+        self.dest = self.calls.get()
+
         self.location = 0
+        self.last_call_time=0
         self.endTime = float(0)
-        # self.total_cost=float(0)
-        # self.E_log = []
+        self.lode = []
+        self.time_lode = []
+    def updet_location(self):
+        if not self.calls.empty():
+            if self.state == -1:
+                self.dest = -1 * self.calls.get()
+            else:
+                self.dest = self.calls.get()
+        else:
+            self.state = 0
+        return self.dest
 
     def update_for_call(self,call: Call):
         self.location=call.get_dst()
         self.endTime = float(call.call_time) + float(self.cost_call(call))
-        self.total_time += float(self.cost_call(call))
+        self.lode.append(self.cost_call(call))
+        self.time_lode.append(self.endTime)
+        self.de_lode(call)
 
-    # def update_for_location(self,location:int):
-    #     self.location = location
-    #     self.endTime += self.cost_location(location)
+    def update_for_location(self,location:int):
+        self.location = location
+        self.endTime += self.cost_location(location)
+
+    def sum_lode(self):
+        sum = 0
+        for i in self.lode:
+            sum += i
+        return sum
+
+    def de_lode(self,call: Call):
+        if (float(call.call_time) > self.time_lode[0]):
+            self.lode.pop(0)
+            self.time_lode.pop(0)
 
     def get_id(self):
         return self.id
-
-    # def time_for_call(self, call:Call)-> float:
-    #     dist = abs(int(self.finalFloor) - int(call.src)) + abs(int(call.src) - int(call.dest))
-    #     time = 2 * self.stopTime + self.startTime + 2 * self.openTime + 2 * self.closeTime
-    #     if self.finalFloor != call.src:
-    #         time += self.startTime
-    #     return dist / self.speed + time
 
     # the cost off a call from a to b in time
     def cost_call(self,call: Call):
@@ -43,13 +68,3 @@ class E:
     def cost_location(self,location: int):
         a_b=abs(self.location - location)
         return self.closeTime + self.startTime + (a_b/self.speed) + self.stopTime + self.openTime
-
-
-    # def isState(self, time) -> bool:
-    #     if self.endTime == 0:
-    #         return True
-    #     return (float(time) >= self.endTime)
-    #
-    # def addCall(self, c):
-    #     self.endTime = self.endTime + self.time_for_call(c)
-    #     self.finalFloor = c.dest

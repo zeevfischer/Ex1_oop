@@ -3,14 +3,6 @@ from my_Elevator import E
 class IDError:
     pass
 class B:
-    # def __init__(self, b: dict):
-    #     self.minFloor = b.get("_minFloor")
-    #     self.maxFloor = b.get("_maxFloor")
-    #     self.elevators = []
-    #     for e in b.get("_elevators"):
-    #         self.elevators.append(E(e))
-
-
     def __init__(self,file_name):
         with open(file_name,"r") as f:
             self.elevators = []

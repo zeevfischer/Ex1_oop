@@ -4,12 +4,7 @@ class Call:
         self.src = c[2]
         self.dest = c[3]
         self.elvstatus = c[4]
-
         self._el = -1
-        self.state = 1 if self.dest > self.src else -1
-
-    def get_state(self):
-        return self.state
 
     def isDone(self) -> bool:
         return (self.elvstatus != -1)
