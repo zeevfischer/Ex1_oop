@@ -30,3 +30,14 @@ class CallForElevator.
 class mian.  
 
 ### Link,Results,class description
+---
+**link to docs Ex1**  
+* https://docs.google.com/document/d/1D4aW2vRaKjwtSBY1gDyCC6SNRE5TRGwMerGIXUMkI_Y/edit
+
+**links to articles from Ex0**  
+* https://trace.tennessee.edu/cgi/viewcontent.cgi?article=3380&context=utk_chanhonoproj  
+* https://www.researchgate.net/publication/220590321_Optimization_of_Group_Elevator_Scheduling_With_Advance_Information  
+* https://www.researchgate.net/publication/31597314_Multiobjective_Optimization_in_Elevator_Group_Control  
+![צילום מסך 2021-11-18 003608](https://user-images.githubusercontent.com/92921822/142294363-4a5c1889-aebb-4bfc-8712-e049c149432f.jpg)
+![צילום מסך 2021-11-18 002427](https://user-images.githubusercontent.com/92921822/142294352-2f7fbabf-997c-48a2-acb1-8b252d6d76b5.jpg)
+
