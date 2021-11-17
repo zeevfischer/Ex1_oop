@@ -53,6 +53,7 @@ def difference(last_call_time,last_call_src,call,elev:E):
     if(dist/elev.speed > time):
         temp = elev.id
     return temp
+
 def read(calls,building):
     call = []
     with open(calls, "r") as csvFile:
@@ -74,27 +75,13 @@ def Ex1(bilding,calls,output):
     b = B(bilding)
     call = read(calls,b)
     all_calls = []
-    index = 0
-    # endTime = int(calls[-1].time) + 2
-    # for time in range(endTime):
-    #     locate(time)
-    #     while int(calls[index].time) + 1 == time:
-    #         allocateAnElevator(calls[index])
-    #         index += 1
-    #         if index == len(calls):
-    #             break
     last_call_time=0
     last_call_src=0
     for i in call: # here i get a call and can start working on it
-        elevs=[]
         min_lode = sys.float_info.max
         id_lode = 0
         min_time = sys.float_info.max
         min_id = -1
-        for e2 in b.elevators:
-            if(on_root(e2,i) != -2):
-                elevs.append(e2)
-
         for e in b.elevators:
             # if(difference(last_call_time,last_call_src,i,e) != -1):
             #     min_id=difference(last_call_time,last_call_src,i,e)
@@ -103,25 +90,44 @@ def Ex1(bilding,calls,output):
                 id_lode = e.get_id()
 
             if(float(e.endTime) <= float(i.call_time)):
-                # temp=e.cost_call(i)
                 if(e.cost_call(i) < min_time):
                     min_time=e.cost_call(i)
                     min_id=e.get_id()
         if(min_id == -1):
             min_id = id_lode
 
-        last_call_src=i.src
-        last_call_time=i.call_time
-
-        # b.elevators[min_id].calls.append(i.src)
-        # b.elevators[min_id].calls.append(i.dest)
-        set_state_by_call(b.elevators[min_id],i)
-        e.last_call_time=i.call_time
-        e.update_for_call(i)
+        # last_call_src=i.src
+        # last_call_time=i.call_time
+        # set_state_by_call(b.elevators[min_id],i)
+        b.elevators[min_id].last_call_time=i.call_time
+        b.elevators[min_id].update_for_call(i)
         i.allocate(min_id)
         all_calls.append(i.get_row())
     write(output,all_calls)
 
 if __name__ == '__main__':
-    Ex1("B5.json","Calls_d.csv","out.csv")
+    # a=input(str)
+    # b=input(str)
+    # Ex1("B"+a+".json","Calls_"+b+".csv","out.csv")
+    Ex1("B1.json", "Calls_d.csv", "out.csv")
+    # Ex1("B2.json", "Calls_a.csv", "out.csv")
+    #
+    # Ex1("B3.json", "Calls_a.csv", "out.csv")
+    # Ex1("B3.json", "Calls_b.csv", "out.csv")
+    # Ex1("B3.json", "Calls_c.csv", "out.csv")
+    # Ex1("B3.json", "Calls_d.csv", "out.csv")
+
+    # Ex1("B4.json", "Calls_a.csv", "out.csv")
+    # Ex1("B4.json", "Calls_b.csv", "out.csv")
+    # Ex1("B4.json", "Calls_c.csv", "out.csv")
+    # Ex1("B4.json", "Calls_d.csv", "out.csv")
+
+    # Ex1("B5.json", "Calls_a.csv", "out.csv")
+    # Ex1("B5.json", "Calls_b.csv", "out.csv")
+    # Ex1("B5.json", "Calls_c.csv", "out.csv")
+    Ex1("B5.json", "Calls_d.csv", "out.csv")
+
+
+
+
 

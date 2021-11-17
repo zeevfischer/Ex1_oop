@@ -4,7 +4,6 @@ class Call:
         self.src = c[2]
         self.dest = c[3]
         self.elvstatus = c[4]
-        self._el = -1
 
     def isDone(self) -> bool:
         return (self.elvstatus != -1)
