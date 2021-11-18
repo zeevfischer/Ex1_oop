@@ -27,7 +27,7 @@ Algorithm
 class Elevatorsv.  
 class Building.  
 class CallForElevator.  
-class mian.  
+class Ex1.  
 
 ### Link,Results,class description
 ---
