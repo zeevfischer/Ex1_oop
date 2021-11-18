@@ -1,5 +1,5 @@
 import json
-from my_Elevator import E
+from my_Elevator import Elevator
 class IDError:
     pass
 class B:
@@ -10,7 +10,7 @@ class B:
             self.min_flor = my_B["_minFloor"]
             self.max_flor = my_B["_maxFloor"]
             for data in my_B["_elevators"]:
-                Elev = E(data)
+                Elev = Elevator(data)
                 self.elevators.append(Elev)
 
     def minF(self):

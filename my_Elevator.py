@@ -1,7 +1,7 @@
 from my_call import Call
 from queue import PriorityQueue
 
-class E:
+class Elevator:
     def __init__(self, data) -> None:
         self.id = data["_id"]
         self.speed = data["_speed"]
