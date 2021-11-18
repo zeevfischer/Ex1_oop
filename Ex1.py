@@ -31,6 +31,27 @@ def write(output,call):
         for i in call:
             writef.writerow(i)
 
+
+def max_call(building: Building):
+    max = 0
+    max_id = 0
+    for i in building.elevators:
+        if (max < i.count_call):
+            max_id = i.get_id()
+            max = i.count_call
+
+    return max_id
+
+def min_call(building: Building):
+    min=sys.float_info.max
+    min_id=0
+
+    for i in building.elevators:
+        if (min > i.count_call):
+            min_id = i.get_id()
+            min = i.count_call
+    return min_id
+
 def Ex1(building, calls, output):
     b = Building(building)
     call = read(calls,b)
@@ -41,6 +62,7 @@ def Ex1(building, calls, output):
         min_time = sys.float_info.max
         min_id = -1
         for e in b.elevators:
+
             if(e.sum_lode() < min_lode):
                 id_lode = e.get_id()
 
@@ -48,6 +70,11 @@ def Ex1(building, calls, output):
                 if(e.cost_call(i) < min_time):
                     min_time=e.cost_call(i)
                     min_id=e.get_id()
+
+        # if(b.elevators[min_id].sum_lode() > b.elevators[id_lode].sum_lode()):
+        #     min_id = id_lode
+        if(b.elevators[min_call(b)].count_call + (len(call)*0.1) < b.elevators[max_call(b)].count_call):
+            min_id = min_call(b)
         if(min_id == -1):
             min_id = id_lode
 
@@ -60,7 +87,7 @@ def Ex1(building, calls, output):
 if __name__ == '__main__':
     # Ex1("B"+a+".json","Calls_"+b+".csv","out.csv")
     Ex1(sys.argv[1], sys.argv[2], sys.argv[3])
-    # Ex1("B3.json", "Calls_b.csv", "out.csv")
+    # Ex1("B5.json", "Calls_b.csv", "out.csv")
 
 
 
