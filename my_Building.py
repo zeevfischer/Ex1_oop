@@ -2,7 +2,7 @@ import json
 from my_Elevator import Elevator
 class IDError:
     pass
-class B:
+class Building:
     def __init__(self,file_name):
         with open(file_name,"r") as f:
             self.elevators = []

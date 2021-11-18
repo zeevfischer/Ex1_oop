@@ -1,6 +1,6 @@
 import csv
 import sys
-from my_Building import B
+from my_Building import Building
 from my_call import Call
 from my_Elevator import Elevator
 class IDError:
@@ -32,7 +32,7 @@ def write(output,call):
             writef.writerow(i)
 
 def Ex1(building, calls, output):
-    b = B(building)
+    b = Building(building)
     call = read(calls,b)
     all_calls = []
     for i in call: # here i get a call and can start working on it
