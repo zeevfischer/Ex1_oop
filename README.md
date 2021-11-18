@@ -38,6 +38,7 @@ class mian.
 * https://trace.tennessee.edu/cgi/viewcontent.cgi?article=3380&context=utk_chanhonoproj  
 * https://www.researchgate.net/publication/220590321_Optimization_of_Group_Elevator_Scheduling_With_Advance_Information  
 * https://www.researchgate.net/publication/31597314_Multiobjective_Optimization_in_Elevator_Group_Control  
-![צילום מסך 2021-11-18 003608](https://user-images.githubusercontent.com/92921822/142294363-4a5c1889-aebb-4bfc-8712-e049c149432f.jpg)
-![צילום מסך 2021-11-18 002427](https://user-images.githubusercontent.com/92921822/142294352-2f7fbabf-997c-48a2-acb1-8b252d6d76b5.jpg)
+![צילום מסך 2021-11-18 143459](https://user-images.githubusercontent.com/92921822/142422403-b07f7061-b4a2-484c-811c-d6c230e5a2ca.jpg)
+![צילום מסך 2021-11-18 144700](https://user-images.githubusercontent.com/92921822/142422416-62cfaa55-6809-41b2-ad22-896c6d789a04.jpg)
+
 
